@@ -1,8 +1,10 @@
 from textnode import TextNode
+from copy_to_public import copy_conetent
+import os
 
 def main ():
-    new_text_node = TextNode("This is some anchor text", "link", "https://www.boot.dev")
-    print(new_text_node.__repr__())
+    copy_conetent("./static", "./public")
+    print("copy_content has ended")
 
 main()
 
