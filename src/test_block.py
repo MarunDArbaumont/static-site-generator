@@ -1,5 +1,5 @@
 import unittest
-from block import BlockType, block_to_block_type, markdown_to_blocks, markdown_to_html_node
+from block import BlockType, block_to_block_type, markdown_to_blocks, markdown_to_html_node, extract_title
 
 class TestBlock(unittest.TestCase):
 
@@ -171,6 +171,31 @@ the **same** even with inline stuff
         self.assertEqual(
             html,
             "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
+        )
+
+    def test_blockquote(self):
+        md = """
+> This is a
+> blockquote block
+
+this is paragraph text
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><blockquote>This is a blockquote block</blockquote><p>this is paragraph text</p></div>",
+        )
+
+    def test_code(self):
+        heading = "# This is the heading"
+
+        title = extract_title(heading)
+        self.assertEqual(
+            title,
+            "This is the heading",
         )
 
 if __name__ == "__main__":

@@ -1,10 +1,9 @@
-from textnode import TextNode
+from generate_page import generate_pages_recursively
 from copy_to_public import copy_conetent
-import os
 
 def main ():
     copy_conetent("./static", "./public")
-    print("copy_content has ended")
+    generate_pages_recursively("content", "template.html", "public")
 
 main()
 
